@@ -128,3 +128,20 @@ span.name {
   font-size:1.1em;
   padding-left:5px;
 }
+
+
+/*
+CUSTOM
+*/
+
+.center-align { text-align: center; margin: auto; width: 50%; }
+
+.correct {border: 1px solid green;}
+
+.sidebar { border-left: 1px solid black; border-bottom: 0; padding-left: 35px; }
+.sidebar .avatar { height: 100%; max-width: 100%;}
+
+@media (max-width: 600px) {
+    .sidebar { border-left: 0; border-bottom: 1px solid black; padding-left: 0;}
+    .sidebar .avatar { max-height: 60px; max-width: 60px; }
+}
