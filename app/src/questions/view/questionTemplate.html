@@ -1,0 +1,35 @@
+<div class="quiz-area" ng-show="inProgress">
+    <div ng-show="!quizOver">
+
+        <h2 id="question">{{question}}</h2>
+        <ul id="options">
+
+            <md-list-item ng-repeat="item in options">
+                <md-checkbox class="answer" aria-label="{{item.text}}" value="{{item.text}}">
+                </md-checkbox>
+                {{item.text}}
+            </md-list-item>
+        </ul>
+        <md-button class="md-raised center-align" ng-click="checkAnswer()" ng-show="answerMode">Submit Answer</md-button>
+
+        <div ng-show="!answerMode">
+            <button ng-click="nextQuestion()" class="next-question">Next</button>
+            <span ng-show="correctAns">That is correct!</span>
+            <span ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
+        </div>
+    </div>
+
+    <div ng-show="quizOver">
+        <h2>Quiz is over</h2>
+        <button ng-click="reset()">Play again</button>
+    </div>
+
+    <div id="score">
+        Score: {{score}}
+    </div>
+</div>
+
+<div class="intro" ng-show="!inProgress">
+    <md-button class="md-raised center-align" id="startQuiz" ng-click="start()">Start the Quiz</md-button>
+
+</div>

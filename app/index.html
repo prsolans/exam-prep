@@ -11,10 +11,19 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
+
 </head>
 
 <body ng-app="examPrepApp" layout="row" ng-controller="QuestionController as ul">
-
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5C25PQ"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5C25PQ');</script>
+<!-- End Google Tag Manager -->
 <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
             md-component-id="left"
             md-is-locked-open="$mdMedia('gt-md')">
@@ -36,13 +45,13 @@
         <md-list-item ng-repeat="it in ul.questions | filter: {category:'Application Programming Interface'}">
             <md-button ng-click="ul.selectQuestion(it)" ng-class="{'selected' : it === ul.selected }">
                 <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+                <i ng-show="loadingLocations" class="fa fa-folder"></i>
                 {{it.name}}
             </md-button>
         </md-list-item>
     </md-list>
 
 </md-sidenav>
-
 
 <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
 
@@ -55,18 +64,24 @@
 
     <md-content flex id="content">
         <div layout="row" layout-sm="column">
-            <div flex="67" flex-sm="100" flex-order-sm="2"><h2>{{ul.selected.name}}</h2>
+            <div flex="67" flex-sm="100" flex-order-sm="2">
 
-                <p>{{ul.selected.content}}</p>
+                <!--<h2>{{ul.selected.name}}</h2>-->
+
+                <!--<p>{{ul.selected.content}}</p>-->
                 <ul>
-                    <md-list-item ng-repeat="item in ul.selected.answers">
-                        <md-checkbox ng-model="isChecked.item.text" aria-label="{{item.text}}" ng-click="ul.validateAnswer(item)">
-                        </md-checkbox>
-                        {{item.text}}
-                    </md-list-item>
+                    <!--<md-list-item ng-repeat="item in ul.selected.answers">-->
+                        <!--<md-checkbox ng-model="isChecked.item.text" aria-label="{{item.text}}"-->
+                                     <!--ng-click="ul.validateAnswer(item)">-->
+                        <!--</md-checkbox>-->
+                        <!--{{item.text}}-->
+                    <!--</md-list-item>-->
+
+                    <quiz/>
+
 
                 </ul>
-                <md-button class="md-raised center-align" ng-click="ul.submitAnswer()"> Submit Answer </md-button>
+                <!--<md-button class="md-raised center-align" ng-click="ul.submitAnswer()"> Submit Answer</md-button>-->
             </div>
             <div flex flex-order-sm="1" class="sidebar">
                 <div layout="column" layout-sm="row">
@@ -79,11 +94,10 @@
             </div>
         </div>
 
-
-
     </md-content>
-
 </div>
+
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 
 <script src="./bower_components/angular/angular.js"></script>
 <script src="./bower_components/angular-ui-utils/ui-utils.js"></script>
