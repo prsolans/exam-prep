@@ -82,67 +82,49 @@
                     if(q) {
                         scope.question = q.question;
                         scope.options = q.options;
+                        scope.details = q.details;
                         scope.answer = q.answer;
                         scope.answerMode = true;
+                        scope.correctAns = false;
                     } else {
                         scope.quizOver = true;
                     }
                 };
 
                 scope.checkAnswer = function() {
-
-                    var invalid = true;
+                    
                     var answers = $('.answer');
-                    var questionId = scope.$id;
-
-                    console.log(questionId);
 
                     var checkedAnswers = $('.answer.md-checked');
-                    if(checkedAnswers.length > 0){
 
-                        console.log('checking...');
-                        console.log(answers.length);
+                    if(checkedAnswers.length > 0) {
 
-                        answers.each(function(i){
+                        var correct = false;
 
-                            console.log(answers[i]);
-                            var isChecked;
-                            var isCorrect;
+                        answers.each(function (i) {
 
-                            if (checkedAnswers[i] ? isChecked = 'true' :  isChecked = 'false');
+                            var isChecked = $(this).hasClass('md-checked');
+                            var isCorrect = scope.options[i].isCorrect;
 
-                            console.log('isChecked: ' + isChecked);
-                            console.log('isCorrect: ' + isCorrect);
-
-                            var thisAnswer = $(answers[i]);
-
-                            console.log(thisAnswer);
-
-                            if ( (isCorrect === true && isChecked == 'true') || (isCorrect === false && isChecked == 'false') ){
-
+                            if ((isCorrect === true && isChecked === false) || (isCorrect === false && isChecked === true)) {
+                                correct = false;
+                                return false;
                             }
-                            else { thisAnswer.addClass('incorrect'); }
 
-                            i++;
-                        })
+                            correct = true;
+                            return true;
+                        });
 
-                        var wrongAnswers = $('.incorrect');
-
-                        console.log('WRONG ANSWERS:');
-                        console.log(wrongAnswers.length);
-
-
-                        if(wrongAnswers.length > 0) {
-                            console.log('wrong');
-                        }
-                        else {
-                            console.log('THIS QUESTION IS ANSWERED CORRECTLY');
-                            scope.nextQuestion();
-                            scope.answerMode = true;
+                        if (correct === true) {
                             scope.score++;
+                            scope.correctAns = true;
                         }
+
                     }
                     else {console.log('Please answer the question.');}
+
+                    scope.answerMode = false;
+
                 };
 
                 scope.nextQuestion = function() {

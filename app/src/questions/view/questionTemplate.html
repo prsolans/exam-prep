@@ -13,9 +13,13 @@
         <md-button class="md-raised center-align" ng-click="checkAnswer()" ng-show="answerMode">Submit Answer</md-button>
 
         <div ng-show="!answerMode">
-            <button ng-click="nextQuestion()" class="next-question">Next</button>
+            <div class="cl"></div>
+
             <span ng-show="correctAns">That is correct!</span>
             <span ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
+            {{details}}
+            <md-button class="next-question md-raised center-align" ng-click="nextQuestion()">Next</md-button>
+
         </div>
     </div>
 
