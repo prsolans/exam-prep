@@ -3,10 +3,10 @@
  */
 (function(){
 
-    angular
+    var app = angular
         .module('questions')
         .controller('QuestionController', [
-            'questionService', '$mdSidenav', '$mdBottomSheet', '$log', '$q',
+            'questionService', '$mdSidenav', '$log', '$q',
             QuestionController
         ]);
 
@@ -17,16 +17,13 @@
      * @param avatarsService
      * @constructor
      */
-    function QuestionController( questionService, $mdSidenav, $mdBottomSheet, $log, $q) {
+    function QuestionController( questionService, $mdSidenav, $log, $q) {
         var self = this;
 
         self.selected     = null;
         self.questions        = [ ];
         self.selectQuestion   = selectQuestion;
         self.toggleList   = toggleQuestionsList;
-        self.submitAnswer = submitAnswer;
-        self.validateAnswer = validateAnswer;
-        //self.showContactOptions  = showContactOptions;
 
         // Load all registered users
 
@@ -42,11 +39,9 @@
         // *********************************
 
         /**
-         * First hide the bottomsheet IF visible, then
-         * hide or Show the 'left' sideNav area
+         * Hide or Show the 'left' sideNav area
          */
         function toggleQuestionsList() {
-            var pending = $mdBottomSheet.hide() || $q.when(true);
 
             pending.then(function(){
                 $mdSidenav('left').toggle();
@@ -62,52 +57,102 @@
             self.toggleList();
         }
 
-        function submitAnswer (){
-            alert('submitted');
-        }
-
-        function validateAnswer (answer) {
-            console.log(answer);
-           if(answer.isCorrect == 'true') { localStorage.setItem('Correct Answer', answer.$$hashKey); }
-
-        }
-
-
-
-        /**
-         * Show the bottom sheet
-         */
-        //function showContactOptions($event) {
-        //    var question = self.selected;
-        //
-        //    return $mdBottomSheet.show({
-        //        parent: angular.element(document.getElementById('content')),
-        //        templateUrl: './src/users/view/contactSheet.html',
-        //        controller: [ '$mdBottomSheet', ContactPanelController],
-        //        controllerAs: "cp",
-        //        bindToController : true,
-        //        targetEvent: $event
-        //    }).then(function(clickedItem) {
-        //        clickedItem && $log.debug( clickedItem.name + ' clicked!');
-        //    });
-        //
-        //    /**
-        //     * Bottom Sheet controller for the Avatar Actions
-        //     */
-        //    function ContactPanelController( $mdBottomSheet ) {
-        //        this.user = user;
-        //        this.actions = [
-        //            { name: 'Phone'       , icon: 'phone'       , icon_url: 'assets/svg/phone.svg'},
-        //            { name: 'Twitter'     , icon: 'twitter'     , icon_url: 'assets/svg/twitter.svg'},
-        //            { name: 'Google+'     , icon: 'google_plus' , icon_url: 'assets/svg/google_plus.svg'},
-        //            { name: 'Hangout'     , icon: 'hangouts'    , icon_url: 'assets/svg/hangouts.svg'}
-        //        ];
-        //        this.submitContact = function(action) {
-        //            $mdBottomSheet.hide(action);
-        //        };
-        //    }
-        //}
-
     }
+
+    app.directive('quiz', function(questionService) {
+        return {
+            restrict: 'AE',
+            scope: {},
+            templateUrl: './src/questions/view/questionTemplate.html',
+            link: function(scope, elem, attrs) {
+                scope.start = function() {
+                    scope.id = 0;
+                    scope.quizOver = false;
+                    scope.inProgress = true;
+                    scope.getQuestion();
+                };
+
+                scope.reset = function() {
+                    scope.inProgress = false;
+                    scope.score = 0;
+                };
+
+                scope.getQuestion = function() {
+                    var q = questionService.selectQuestion(scope.id);
+                    if(q) {
+                        scope.question = q.question;
+                        scope.options = q.options;
+                        scope.answer = q.answer;
+                        scope.answerMode = true;
+                    } else {
+                        scope.quizOver = true;
+                    }
+                };
+
+                scope.checkAnswer = function() {
+
+                    var invalid = true;
+                    var answers = $('.answer');
+                    var questionId = scope.$id;
+
+                    console.log(questionId);
+
+                    var checkedAnswers = $('.answer.md-checked');
+                    if(checkedAnswers.length > 0){
+
+                        console.log('checking...');
+                        console.log(answers.length);
+
+                        answers.each(function(i){
+
+                            console.log(answers[i]);
+                            var isChecked;
+                            var isCorrect;
+
+                            if (checkedAnswers[i] ? isChecked = 'true' :  isChecked = 'false');
+
+                            console.log('isChecked: ' + isChecked);
+                            console.log('isCorrect: ' + isCorrect);
+
+                            var thisAnswer = $(answers[i]);
+
+                            console.log(thisAnswer);
+
+                            if ( (isCorrect === true && isChecked == 'true') || (isCorrect === false && isChecked == 'false') ){
+
+                            }
+                            else { thisAnswer.addClass('incorrect'); }
+
+                            i++;
+                        })
+
+                        var wrongAnswers = $('.incorrect');
+
+                        console.log('WRONG ANSWERS:');
+                        console.log(wrongAnswers.length);
+
+
+                        if(wrongAnswers.length > 0) {
+                            console.log('wrong');
+                        }
+                        else {
+                            console.log('THIS QUESTION IS ANSWERED CORRECTLY');
+                            scope.nextQuestion();
+                            scope.answerMode = true;
+                            scope.score++;
+                        }
+                    }
+                    else {console.log('Please answer the question.');}
+                };
+
+                scope.nextQuestion = function() {
+                    scope.id++;
+                    scope.getQuestion();
+                }
+
+                scope.reset();
+            }
+        }
+    });
 
 })();

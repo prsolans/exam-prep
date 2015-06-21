@@ -138,6 +138,7 @@ CUSTOM
 
 .correct {border: 1px solid green;}
 
+.incorrect { background: purple; }
 .sidebar { border-left: 1px solid black; border-bottom: 0; padding-left: 35px; }
 .sidebar .avatar { height: 100%; max-width: 100%;}
 
