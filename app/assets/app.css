@@ -136,9 +136,11 @@ CUSTOM
 
 .center-align { text-align: center; margin: auto; width: 50%; }
 
-.correct {border: 1px solid green;}
+.alert-message {width: 100%; padding: 9px; font-size: 1.3em;}
+.correct {background: #A5D6A7; }
+.incorrect { background: #EF9A9A; }
 
-.incorrect { background: purple; }
+.quiz-area { padding: 30px 55px 30px 30px; }
 .sidebar { border-left: 1px solid black; border-bottom: 0; padding-left: 35px; }
 .sidebar .avatar { height: 100%; max-width: 100%;}
 

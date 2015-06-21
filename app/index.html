@@ -24,75 +24,20 @@
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5C25PQ');</script>
 <!-- End Google Tag Manager -->
-<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
-            md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-md')">
-
-    <md-toolbar class="md-whiteframe-z1">
-        <h1>Questions</h1>
-    </md-toolbar>
-
-    <md-list>
-        <h3>Basic Functionality</h3>
-        <md-list-item ng-repeat="it in ul.questions | filter: {category:'Basic Functionality'}">
-            <md-button ng-click="ul.selectQuestion(it)" ng-class="{'selected' : it === ul.selected }">
-                <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
-                {{it.name}}
-            </md-button>
-        </md-list-item>
-
-        <h3>Application Programming Interface</h3>
-        <md-list-item ng-repeat="it in ul.questions | filter: {category:'Application Programming Interface'}">
-            <md-button ng-click="ul.selectQuestion(it)" ng-class="{'selected' : it === ul.selected }">
-                <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
-                <i ng-show="loadingLocations" class="fa fa-folder"></i>
-                {{it.name}}
-            </md-button>
-        </md-list-item>
-    </md-list>
-
-</md-sidenav>
 
 <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
 
     <md-toolbar layout="row" class="md-whiteframe-z1">
-        <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show Question List">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
-        <h1>Exam Preparation</h1>
+        <h1>Kentico Certification Exam - Preparation Guide</h1>
     </md-toolbar>
 
     <md-content flex id="content">
-        <div layout="row" layout-sm="column">
-            <div flex="67" flex-sm="100" flex-order-sm="2">
 
-                <!--<h2>{{ul.selected.name}}</h2>-->
-
-                <!--<p>{{ul.selected.content}}</p>-->
-                <ul>
-                    <!--<md-list-item ng-repeat="item in ul.selected.answers">-->
-                        <!--<md-checkbox ng-model="isChecked.item.text" aria-label="{{item.text}}"-->
-                                     <!--ng-click="ul.validateAnswer(item)">-->
-                        <!--</md-checkbox>-->
-                        <!--{{item.text}}-->
-                    <!--</md-list-item>-->
 
                     <quiz/>
 
 
-                </ul>
-                <!--<md-button class="md-raised center-align" ng-click="ul.submitAnswer()"> Submit Answer</md-button>-->
-            </div>
-            <div flex flex-order-sm="1" class="sidebar">
-                <div layout="column" layout-sm="row">
-                    <div flex>
-                        <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
-                    </div>
-                    <div flex><p>{{ul.selected.category}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
     </md-content>
 </div>

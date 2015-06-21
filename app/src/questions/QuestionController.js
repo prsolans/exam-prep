@@ -84,6 +84,8 @@
                         scope.options = q.options;
                         scope.details = q.details;
                         scope.answer = q.answer;
+                        scope.category = q.category;
+                        scope.avatar = q.avatar;
                         scope.answerMode = true;
                         scope.correctAns = false;
                     } else {
@@ -92,7 +94,7 @@
                 };
 
                 scope.checkAnswer = function() {
-                    
+
                     var answers = $('.answer');
 
                     var checkedAnswers = $('.answer.md-checked');
@@ -108,6 +110,7 @@
 
                             if ((isCorrect === true && isChecked === false) || (isCorrect === false && isChecked === true)) {
                                 correct = false;
+                                score.correctAns = false;
                                 return false;
                             }
 
@@ -121,7 +124,7 @@
                         }
 
                     }
-                    else {console.log('Please answer the question.');}
+                    else {console.log('Please answer the question.'); return false;}
 
                     scope.answerMode = false;
 

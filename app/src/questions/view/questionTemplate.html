@@ -1,39 +1,58 @@
-<div class="quiz-area" ng-show="inProgress">
-    <div ng-show="!quizOver">
+<div layout="row" layout-sm="column">
+    <div flex="67" flex-sm="100" flex-order-sm="2">
 
-        <h2 id="question">{{question}}</h2>
-        <ul id="options">
 
-            <md-list-item ng-repeat="item in options">
-                <md-checkbox class="answer" aria-label="{{item.text}}" value="{{item.text}}">
-                </md-checkbox>
-                {{item.text}}
-            </md-list-item>
-        </ul>
-        <md-button class="md-raised center-align" ng-click="checkAnswer()" ng-show="answerMode">Submit Answer</md-button>
 
-        <div ng-show="!answerMode">
-            <div class="cl"></div>
 
-            <span ng-show="correctAns">That is correct!</span>
-            <span ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
-            {{details}}
-            <md-button class="next-question md-raised center-align" ng-click="nextQuestion()">Next</md-button>
+            <div class="quiz-area" ng-show="inProgress">
+                <div ng-show="!quizOver">
 
+                    <h2 id="question">{{question}}</h2>
+                    <ul id="options">
+
+                        <md-list-item ng-repeat="item in options">
+                            <md-checkbox class="answer" aria-label="{{item.text}}" value="{{item.text}}">
+                            </md-checkbox>
+                            {{item.text}}
+                        </md-list-item>
+                    </ul>
+                    <md-button class="md-raised center-align" ng-click="checkAnswer()" ng-show="answerMode">Submit Answer</md-button>
+
+                    <div ng-show="!answerMode">
+                        <div class="cl"></div>
+
+                        <div class="alert-message correct" ng-show="correctAns">That is correct!</div>
+                        <div class="alert-message incorrect" ng-show="!correctAns">Sorry, that is an incorrect answer.</div>
+                        <md-card>{{details}}</md-card>
+                        <md-button class="next-question md-raised center-align" ng-click="nextQuestion()">Next</md-button>
+
+                    </div>
+                </div>
+
+                <div ng-show="quizOver">
+                    <h2>Quiz is over</h2>
+                    <button ng-click="reset()">Play again</button>
+                </div>
+
+                <div id="score">
+                    Score: {{score}}
+                </div>
+            </div>
+
+            <div class="intro" ng-show="!inProgress">
+                <md-button class="md-raised center-align" id="startQuiz" ng-click="start()">Start the Quiz</md-button>
+
+            </div>
+
+    </div>
+    <div flex flex-order-sm="1" class="sidebar">
+        <div layout="column" layout-sm="row">
+            <div flex>
+                <md-icon md-svg-icon="{{avatar}}" class="avatar"></md-icon>
+            </div>
+            <div flex="67">      <md-subheader class="md-primary">{{category}}</md-subheader>
+            </div>
         </div>
     </div>
-
-    <div ng-show="quizOver">
-        <h2>Quiz is over</h2>
-        <button ng-click="reset()">Play again</button>
-    </div>
-
-    <div id="score">
-        Score: {{score}}
-    </div>
 </div>
 
-<div class="intro" ng-show="!inProgress">
-    <md-button class="md-raised center-align" id="startQuiz" ng-click="start()">Start the Quiz</md-button>
-
-</div>
