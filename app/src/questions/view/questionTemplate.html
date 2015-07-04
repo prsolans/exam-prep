@@ -1,10 +1,6 @@
 <div layout="row" layout-sm="column">
     <div flex="67" flex-sm="100" flex-order-sm="2">
-
-
-
-
-            <div class="quiz-area" ng-show="inProgress">
+        <div class="quiz-area" ng-show="inProgress">
                 <div ng-show="!quizOver">
 
                     <h2 id="question">{{question}}</h2>
@@ -30,16 +26,21 @@
                 </div>
 
                 <div ng-show="quizOver">
-                    <h2>Quiz is over</h2>
-                    <button ng-click="reset()">Play again</button>
+                    <h2>You have completed the questions.</h2>
                 </div>
 
                 <div id="score">
                     Score: {{score}}
                 </div>
+
+                <div ng-show="quizOver">
+                    <md-button class="md-raised center-align" id="startQuiz" ng-click="reset()">Start Over</md-button>
+                </div>
             </div>
 
             <div class="intro" ng-show="!inProgress">
+                <p>This application provides questions taken directly from the official <a href="http://www.kentico.com/getattachment/Training/Developer-Certification/DevCertificationPrepGuide.pdf" target="_blank">
+                    Kentico 8 Certified Developer Exam Preparation Guide</a>. Official information about Kentico certification can be found <a href="http://www.kentico.com/training/developer-certification" target="_blank">here</a>.</p>
                 <md-button class="md-raised center-align" id="startQuiz" ng-click="start()">Start the Quiz</md-button>
 
             </div>
@@ -48,9 +49,8 @@
     <div flex flex-order-sm="1" class="sidebar">
         <div layout="column" layout-sm="row">
             <div flex>
-                <md-icon md-svg-icon="{{avatar}}" class="avatar"></md-icon>
-            </div>
-            <div flex="67">      <md-subheader class="md-primary">{{category}}</md-subheader>
+               <md-subheader class="md-primary">                <md-icon md-svg-icon="{{avatar}}" class="avatar"></md-icon>
+                {{category}}</md-subheader>
             </div>
         </div>
     </div>
